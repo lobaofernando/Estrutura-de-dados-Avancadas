@@ -15,9 +15,9 @@ public class Main {
         System.out.println("======================================");
         System.out.println("Nós da árvore: ");
 
-        for (int i = 0; i < list.size(); i++) {
+        for (Node node : list) {
 
-            System.out.println(list.get(i).getName().toUpperCase(Locale.ROOT) + ": " + list.get(i).getChildren().size()
+            System.out.println(node.getName().toUpperCase(Locale.ROOT) + ": " + node.getChildren().size()
                     + " filhos");
 
         }
@@ -27,7 +27,7 @@ public class Main {
     public static void main(String[] args) {
 
         Node root = null;
-        ArrayList<Node> list = new ArrayList<Node>();
+        ArrayList<Node> list = new ArrayList<>();
 
         while (true) {
 
@@ -52,7 +52,6 @@ public class Main {
 
                 boolean found = false;
                 System.out.println("Nó " + input + " será filho de qual nó da árvore? ");
-                input = "";
                 input = sc.nextLine();
 
                 for (int i = 0; i < list.size(); i++) {
