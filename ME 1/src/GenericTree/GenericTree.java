@@ -8,11 +8,46 @@ public class GenericTree {
 
     private Node root;
     private ArrayList<Node> list;
+    private int maxGrau = 0;
 
     //construtor
     public GenericTree() {
         this.root = null;
         this.list = new ArrayList<Node>();
+    }
+
+    public int getMaxGrau() {
+        return maxGrau;
+    }
+
+    public void setMaxGrau(int maxGrau) {
+        this.maxGrau = maxGrau;
+    }
+
+    public void folhas() {
+
+        System.out.println("======================================");
+        System.out.println("Nós folha:");
+        for (Node node : this.list) {
+            if (node.isFolha()) {
+                System.out.println(node.getName());
+            }
+        }
+        System.out.println("======================================");
+
+    }
+
+    public void internos() {
+
+        System.out.println("======================================");
+        System.out.println("Nós internos:");
+        for (Node node : this.list) {
+            if (!node.isFolha()) {
+                System.out.println(node.getName());
+            }
+        }
+        System.out.println("======================================");
+
     }
 
     //adicionar nó
@@ -35,6 +70,7 @@ public class GenericTree {
 
             if (root == null) {
                 root = new Node(input);
+                root.setGrau(0);
                 System.out.println("Nó " + input + " definido como raiz.");
                 list.add(root);
             } else {
@@ -43,12 +79,16 @@ public class GenericTree {
                 System.out.println("Nó " + input + " será filho de qual nó da árvore? ");
                 input = sc.nextLine();
 
-                for (int i = 0; i < list.size(); i++) {
+                for (Node n : this.list) {
 
-                    if (list.get(i).getName().equals(input)) {
+                    if (n.getName().equals(input)) {
 
-                        System.out.println("Nó " + node.getName() + " inserido com filho do Nó " + list.get(i).getName());
-                        list.get(i).addChild(node);
+                        node.setGrau(n.getGrau()+1);
+                        if (node.getGrau() > this.maxGrau) {
+                            setMaxGrau(node.getGrau());
+                        }
+                        System.out.println("Nó " + node.getName() + " inserido com filho do Nó " + n.getName());
+                        n.addChild(node);
                         list.add(node);
                         found = true;
                         return true;
@@ -59,6 +99,32 @@ public class GenericTree {
                 }
             }
         }
+    }
+
+    public void getNodeGrau(String name) {
+
+        for (Node node : this.list) {
+
+            if (node.getName().equals(name)) {
+                System.out.println("Nó " + node.getName() + " tem grau " + node.getGrau());
+                return;
+            }
+        }
+
+        System.out.println("Nó não enccontrado!!");
+    }
+
+    public void getNodeAltura(Node n) {
+
+        for (Node node : this.list) {
+
+            if (node.equals(n)) {
+                System.out.println("Nó " + node.getName() + " tem altura " + Math.abs((node.getGrau() - this.maxGrau)));
+                return;
+            }
+        }
+
+        System.out.println("Nó não enccontrado!!");
     }
 
     //exibir nós
@@ -73,11 +139,12 @@ public class GenericTree {
 
         for (Node node : this.list) {
 
-            System.out.println(node.getName().toUpperCase(Locale.ROOT) + ": " + node.getChildren().size()
-                    + " filhos");
+            System.out.print(node.getName().toUpperCase(Locale.ROOT) + ": " + node.getChildren().size()
+                    + " filhos e grau " + node.getGrau() + " ");
+            getNodeAltura(node);
 
         }
-        System.out.println("======================================");
+        System.out.println("====================================== " + this.getMaxGrau());
     }
 
 }

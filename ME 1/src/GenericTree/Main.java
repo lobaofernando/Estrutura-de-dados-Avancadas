@@ -10,11 +10,14 @@ public class Main {
         GenericTree tree1 = new GenericTree();
 
         boolean check = true;
-        while (check) {
 
+        while (check) {
             check = tree1.addNode();
         }
+
         tree1.printNodes();
+        tree1.folhas();
+        tree1.internos();
     }
 
 }

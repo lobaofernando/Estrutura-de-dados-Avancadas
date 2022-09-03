@@ -7,9 +7,18 @@ public class Node {
 
     String name;
     ArrayList<Node> children = new ArrayList<Node>();
+    int grau;
 
     public Node(String name) {
         this.name=name;
+    }
+
+    public int getGrau() {
+        return grau;
+    }
+
+    public void setGrau(int grau) {
+        this.grau = grau;
     }
 
     public String getName() {
@@ -28,5 +37,11 @@ public class Node {
         return children;
     }
 
+    public boolean isFolha() {
+        if (this.children.size() == 0) {
+            return true;
+        }
+        return false;
+    }
 
 }
