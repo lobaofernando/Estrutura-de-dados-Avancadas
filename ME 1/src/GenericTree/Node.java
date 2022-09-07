@@ -1,6 +1,5 @@
 package GenericTree;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Node {
@@ -13,7 +12,7 @@ public class Node {
         this.name=name;
     }
 
-    public int getGrau() {
+    public int getNivel() {
         return grau;
     }
 
@@ -30,11 +29,23 @@ public class Node {
     }
 
     public void addChild(Node node) {
-        children.add(node);
+        this.children.add(node);
     }
 
     public ArrayList<Node> getChildren() {
-        return children;
+        return this.children;
+    }
+
+    public void printChildren() {
+        System.out.print("filhos (");
+        for (Node node : this.children) {
+            System.out.print((String)node.getName() + ", ");
+        }
+        System.out.print(")  ");
+    }
+
+    public void getNodeAltura(int maxGrau) {
+        System.out.print("altura " + Math.abs((this.getNivel() - maxGrau)));
     }
 
     public boolean isFolha() {
