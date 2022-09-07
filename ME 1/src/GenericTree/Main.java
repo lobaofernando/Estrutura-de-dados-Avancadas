@@ -16,10 +16,22 @@ public class Main {
         System.out.println("5- Printar Árvore");
         System.out.println("");
         System.out.println("x- Sair");
+        System.out.println("9- Printar árvore exemplo");
         System.out.println("======================================");
     }
 
     public static void main(String[] args) {
+
+        GenericTree exampleTree = new GenericTree();
+        exampleTree.addNodetest("A", "");
+        exampleTree.addNodetest("B", "A");
+        exampleTree.addNodetest("C", "B");
+        exampleTree.addNodetest("D", "B");
+        exampleTree.addNodetest("E", "C");
+        exampleTree.addNodetest("F", "A");
+        exampleTree.addNodetest("G", "E");
+        exampleTree.addNodetest("H", "E");
+        exampleTree.addNodetest("J", "F");
 
         GenericTree tree = new GenericTree();
         boolean check = true;
@@ -47,6 +59,10 @@ public class Main {
                 case "5":
                     System.out.println("======================================");
                     System.out.println(tree.getRoot().print());
+                    break;
+                case "9":
+                    exampleTree.printNodes();
+                    System.out.println(exampleTree.getRoot().print());
                     break;
                 case "x":
                     System.out.println("======================================");

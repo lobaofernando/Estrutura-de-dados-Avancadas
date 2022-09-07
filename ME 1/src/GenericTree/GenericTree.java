@@ -20,11 +20,11 @@ public class GenericTree {
     public Node getRoot() {
         return this.root;
     }
-    //retorna grau máximo da árvore
+    //retorna nível máximo da árvore
     public int getNivel() {
-        return nivel;
+        return this.nivel;
     }
-    //seta o grau máximo
+    //seta o nível máximo
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
@@ -34,7 +34,7 @@ public class GenericTree {
         for (Node node : this.list) {
 
             if (node.getName().equals(name)) {
-                System.out.println("Nó " + node.getName() + " tem grau " + node.getNivel());
+                System.out.println("Nó " + node.getName() + " tem grau " + node.getChildren().size());
                 return;
             }
         }
@@ -124,7 +124,6 @@ public class GenericTree {
             System.out.print(node.getName().toUpperCase(Locale.ROOT) + ": ");
             System.out.print("nível " + node.getNivel() + ", ");
             System.out.print("grau " + node.getChildren().size() + ", ");
-            //node.getNodeAltura(this.getNivel());
             System.out.print(", ");
             node.printChildren();
             System.out.println("");
@@ -141,5 +140,31 @@ public class GenericTree {
         }
         return false;
     }
+    //adiciona nós diretamente
+    public void addNodetest(String name, String parent) {
 
+        if (searchNodes(name)) {
+            return;
+        }
+
+        Node node = new Node(name);
+
+        if (root == null) {
+            this.root = node;
+            this.root.setGrau(0);
+            this.list.add(root);
+        } else {
+            for (Node n : this.list) {
+                if (n.getName().equals(parent)) {
+                    node.setGrau(n.getNivel()+1);
+                    if (node.getNivel() > this.nivel) {
+                        setNivel(node.getNivel());
+                    }
+                    n.addChild(node);
+                    this.list.add(node);
+                    return;
+                }
+            }
+        }
+    }
 }

@@ -39,8 +39,11 @@ public class Node {
 
     public void printChildren() {
         System.out.print("filhos (");
-        for (Node node : this.children) {
-            System.out.print((String)node.getName() + ", ");
+        for (int i = 0; i < this.getChildren().size(); i++) {
+            System.out.print((String)this.getChildren().get(i).getName());
+            if (i < this.getChildren().size() - 1) {
+                System.out.print(", ");
+            }
         }
         System.out.print(")  ");
     }
