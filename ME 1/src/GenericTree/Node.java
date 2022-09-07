@@ -1,6 +1,7 @@
 package GenericTree;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Node {
 
@@ -53,6 +54,26 @@ public class Node {
             return true;
         }
         return false;
+    }
+
+    public String print() {
+        StringBuilder buffer = new StringBuilder(50);
+        printAux(buffer, "", "");
+        return buffer.toString();
+    }
+
+    private void printAux(StringBuilder builder, String text, String childrenPrefix) {
+        builder.append(text);
+        builder.append(this.name);
+        builder.append("\n");
+        for (Iterator<Node> it = this.children.iterator(); it.hasNext();) {
+            Node next = it.next();
+            if (it.hasNext()) {
+                next.printAux(builder, childrenPrefix + "├── ", childrenPrefix + "│   ");
+            } else {
+                next.printAux(builder, childrenPrefix + "└── ", childrenPrefix + "    ");
+            }
+        }
     }
 
 }

@@ -9,11 +9,11 @@ public class Main {
 
     public static void menu() {
         System.out.println("======================================");
-        System.out.println("Escolha a opção desejada: ");
         System.out.println("1- Criar novo nó");
         System.out.println("2- Exibir Nós folha");
         System.out.println("3- Exibir Nós internos");
         System.out.println("4- Exibir nós");
+        System.out.println("5- Printar Árvore");
         System.out.println("");
         System.out.println("x- Sair");
         System.out.println("======================================");
@@ -21,32 +21,37 @@ public class Main {
 
     public static void main(String[] args) {
 
-        GenericTree tree1 = new GenericTree();
+        GenericTree tree = new GenericTree();
         boolean check = true;
 
         while (check) {
             menu();
             String input;
             Scanner sc = new Scanner(System.in);
+            System.out.print("Escolha a opção desejada: ");
             input = sc.nextLine();
 
             switch (input) {
                 case "1":
-                    tree1.addNode();
+                    tree.addNode();
                     break;
                 case "2":
-                    tree1.folhas();
+                    tree.folhas();
                     break;
                 case "3":
-                    tree1.internos();
+                    tree.internos();
                     break;
                 case "4":
-                    tree1.printNodes();
+                    tree.printNodes();
+                    break;
+                case "5":
+                    System.out.println("======================================");
+                    System.out.println(tree.getRoot().print());
                     break;
                 case "x":
                     System.out.println("======================================");
                     System.out.println("Árvore final");
-                    tree1.printNodes();
+                    tree.printNodes();
                     System.out.println("Saindo ....");
                     check = false;
                     break;

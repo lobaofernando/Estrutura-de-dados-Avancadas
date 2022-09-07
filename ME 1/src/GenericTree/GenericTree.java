@@ -16,6 +16,10 @@ public class GenericTree {
         this.root = null;
         this.list = new ArrayList<>();
     }
+    //retorna nó raiz
+    public Node getRoot() {
+        return this.root;
+    }
     //retorna grau máximo da árvore
     public int getNivel() {
         return nivel;
