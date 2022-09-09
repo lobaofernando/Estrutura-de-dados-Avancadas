@@ -8,13 +8,31 @@ import java.util.Scanner;
 public class GenericTree {
 
     private Node root;                          //raiz
-    private final ArrayList<Node> list;         //lista de nós na árvore
-    private int nivel = 0;                    //grau máximo da árvore
+    private ArrayList<Node> list;               //lista de nós na árvore
+    private int nivel = 0;                      //grau máximo da árvore
 
     //construtor
     public GenericTree() {
         this.root = null;
         this.list = new ArrayList<>();
+    }
+    //construtor a partir de uma árvore genérica
+    public static GenericTree BinaryTree(GenericTree tree) {
+
+        GenericTree btree = new GenericTree();
+        btree.setRoot(tree.getRoot());
+        btree.setList(tree.getList());
+
+        for (int i = btree.getList().size() - 1; i >= 0; i--) {
+
+            while (btree.getList().get(i).getChildren().size() > 2) {
+
+                btree.getList().get(i).getChildren().remove(btree.getList().get(i).getChildren().size() - 1);
+
+            }
+
+        }
+        return btree;
     }
     //retorna nó raiz
     public Node getRoot() {
@@ -27,6 +45,18 @@ public class GenericTree {
     //seta o nível máximo
     public void setNivel(int nivel) {
         this.nivel = nivel;
+    }
+    //set root
+    public void setRoot(Node root) {
+        this.root = root;
+    }
+    //get list
+    public ArrayList<Node> getList() {
+        return this.list;
+    }
+    //set list
+    public void setList(ArrayList<Node> list) {
+        this.list = list;
     }
     //retorna grau do nó pesquisado
     public void getNodeGrau(String name) {
