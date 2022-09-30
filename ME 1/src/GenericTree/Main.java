@@ -24,7 +24,10 @@ public class Main {
         System.out.println("11- Converter árvore generica para binaria de busca");
         System.out.println("12- Printar árvore binaria de busca convertida");
         System.out.println("13- Printar árvore binária de busca exemplo\n");
-        System.out.println("14- Deletar nó da árvore binária de busca convertida");
+        System.out.println("14- Deletar nó da árvore binária de busca convertida 1");
+        System.out.println("15- Deletar nó da árvore binária de busca convertida 2");
+        System.out.println("16- testDelete()");
+        System.out.println("17- testDelete2()");
         System.out.println("\nx - Sair");
         System.out.println("======================================");
     }
@@ -141,7 +144,28 @@ public class Main {
                     System.out.println(exampleBSTree.getRoot().print());
                     break;
                 case "14":
-                    if (bstree.getRoot() == null) {
+                    if ((bstree != null ? bstree.getRoot() : null) == null) {
+                        System.out.println("Primeiro use a opção 11 para gerar a Árvore Binária de busca!");
+                        break;
+                    }
+                    exampleBSTree.deleteNode();
+                    break;
+                case "15":
+                    if ((bstree != null ? bstree.getRoot() : null) == null) {
+                        System.out.println("Primeiro use a opção 11 para gerar a Árvore Binária de busca!");
+                        break;
+                    }
+                    exampleBSTree.testDelete();
+                    break;
+                case "16":
+                    if (exampleBSTree.getRoot() == null) {
+                        System.out.println("Primeiro use a opção 11 para gerar a Árvore Binária de busca!");
+                        break;
+                    }
+                    exampleBSTree.testDelete();
+                    break;
+                case "17":
+                    if (exampleBSTree.getRoot() == null) {
                         System.out.println("Primeiro use a opção 11 para gerar a Árvore Binária de busca!");
                         break;
                     }

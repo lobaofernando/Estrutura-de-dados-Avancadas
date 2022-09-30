@@ -112,6 +112,8 @@ public class BinarySearchTree {
         this.root = delete_Recursive(this.root, input);
         System.out.println("\nDepois\n");
         System.out.println(this.getRoot().print());
+
+        this.list.removeIf(node -> node.getValue() == input);
     }
 
     Node delete_Recursive(Node node, int value)  {
@@ -133,5 +135,39 @@ public class BinarySearchTree {
             node.setRight(delete_Recursive(node.getRight(), node.getValue()));
         }
         return node;
+    }
+
+    public void testDelete() {
+        Scanner sc = new Scanner(System.in);
+        int input;
+        System.out.println("======================================");
+        System.out.println("Insira o valor do nó: ");
+        input=sc.nextInt();
+
+        if (input==0) {
+            return;
+        }
+
+        if (!searchNodes(input)) {
+            System.out.println("Nó não cadastrado!!");
+            return;
+        }
+        System.out.println("\nAntes\n");
+        System.out.println(this.getRoot().print());
+
+        this.list.removeIf(node -> node.getValue() == input);
+        int size = this.list.size();
+        this.root=null;
+
+        for (int c=0; c <= size; c++) {
+            this.addNode(this.list.get(c).getValue());
+        }
+
+        for (int c=size-1; c <= list.size(); c++) {
+            this.list.remove(c);
+        }
+
+        System.out.println("\nDepois\n");
+        System.out.println(this.getRoot().print());
     }
 }
