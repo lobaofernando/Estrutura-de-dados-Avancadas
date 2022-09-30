@@ -16,6 +16,7 @@ public class GenericTree {
         this.root = null;
         this.list = new ArrayList<>();
     }
+
     //construtor a partir de uma árvore genérica
     public static GenericTree BinaryTree(GenericTree tree) {
 
