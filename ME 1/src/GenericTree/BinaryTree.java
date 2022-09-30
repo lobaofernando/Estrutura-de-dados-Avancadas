@@ -44,12 +44,12 @@ public class BinaryTree {
         this.nivel = nivel;
     }
     //retorna grau do nó pesquisado
-    public void getNodeGrau(String name) {
+    public void getNodeGrau(int value) {
 
         for (Node node : this.list) {
 
-            if (node.getName().equals(name)) {
-                System.out.println("Nó " + node.getName() + " tem grau " + node.getChildren().size());
+            if (node.getValue() == value) {
+                System.out.println("Nó " + node.getValue() + " tem grau " + node.getChildren().size());
                 return;
             }
         }
@@ -63,7 +63,7 @@ public class BinaryTree {
         System.out.println("Nós folha:");
         for (Node node : this.list) {
             if (node.isFolha()) {
-                System.out.println(node.getName());
+                System.out.println(node.getValue());
             }
         }
         System.out.println("======================================");
@@ -76,7 +76,7 @@ public class BinaryTree {
         System.out.println("Nós internos:");
         for (Node node : this.list) {
             if (!node.isFolha()) {
-                System.out.println(node.getName());
+                System.out.println(node.getValue());
             }
         }
         System.out.println("======================================");
@@ -85,12 +85,12 @@ public class BinaryTree {
     //adicionar nó
     public void addNode() {
         Scanner sc = new Scanner(System.in);
-        String input;
+        int input;
         System.out.println("======================================");
-        System.out.println("Insira o nome do nó: ");
-        input=sc.nextLine();
+        System.out.println("Insira o valor do nó: ");
+        input=sc.nextInt();
 
-        if (input.equals("exit")) {
+        if (input==0) {
             return;
         }
 
@@ -108,10 +108,10 @@ public class BinaryTree {
             this.list.add(root);
         } else {
             System.out.println("Nó " + input + " será filho de qual nó da árvore? ");
-            input = sc.nextLine();
+            input = sc.nextInt();
 
             for (Node n : this.list) {
-                if (n.getName().equals(input)) {
+                if (n.getValue()==input) {
                     if (n.getChildren().size() >= 2) {
                         System.out.println("Nó escolhido já tem 2 filhos!");
                         return;
@@ -120,7 +120,7 @@ public class BinaryTree {
                     if (node.getNivel() > this.nivel) {
                         setNivel(node.getNivel());
                     }
-                    System.out.println("Nó " + node.getName() + " inserido com filho do Nó " + n.getName());
+                    System.out.println("Nó " + node.getValue() + " inserido com filho do Nó " + n.getValue());
                     n.addChild(node);
                     this.list.add(node);
                     return;
@@ -140,7 +140,7 @@ public class BinaryTree {
         System.out.println("Nós da árvore: ");
 
         for (Node node : this.list) {
-            System.out.print(node.getName().toUpperCase(Locale.ROOT) + ": ");
+            System.out.print(node.getValue() + ": ");
             System.out.print("nível " + node.getNivel() + ", ");
             System.out.print("grau " + node.getChildren().size() + ", ");
             System.out.print(", ");
@@ -151,22 +151,22 @@ public class BinaryTree {
         System.out.println("====================================== ");
     }
     //verificar se nó existe
-    public boolean searchNodes(String name) {
+    public boolean searchNodes(int value) {
         for (Node node : list) {
-            if (node.getName().equals(name)) {
+            if (node.getValue() == value) {
                 return true;
             }
         }
         return false;
     }
     //adiciona nós diretamente
-    public void addNodetest(String name, String parent) {
+    public void addNodetest(int value, String parent) {
 
-        if (searchNodes(name)) {
+        if (searchNodes(value)) {
             return;
         }
 
-        Node node = new Node(name);
+        Node node = new Node(value);
 
         if (root == null) {
             this.root = node;
@@ -174,7 +174,7 @@ public class BinaryTree {
             this.list.add(root);
         } else {
             for (Node n : this.list) {
-                if (n.getName().equals(parent)) {
+                if (n.getValue()==value) {
                     node.setGrau(n.getNivel()+1);
                     if (node.getNivel() > this.nivel) {
                         setNivel(node.getNivel());

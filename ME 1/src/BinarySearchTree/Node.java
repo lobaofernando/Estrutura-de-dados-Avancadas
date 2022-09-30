@@ -5,8 +5,6 @@ import java.util.Iterator;
 
 public class Node {
 
-    ArrayList<Node> children = new ArrayList<Node>();
-
     private int value;
     private Node left;
     private Node right;
@@ -14,6 +12,7 @@ public class Node {
     public Node(int name) {
         this.value =name;
     }
+
     public int getValue() {
         return value;
     }
@@ -51,23 +50,22 @@ public class Node {
         return search(root.left, value);
     }
 
-    public void addRecursive(Node root, int value)
+    public void addRecursive(Node node)
     {
-        if (root.value < value) {
-            if (root.getRight() == null) {
-                Node node = new Node(value);
-                root.setRight(node);
-                return;
+        if (this.value < node.getValue()) {
+            if (this.getRight() == null) {
+                this.setRight(node);
+            } else {
+                this.addRecursive(node);
             }
-            addRecursive(root.getRight(), value);
-        }else {
-            if (root.getLeft() == null) {
-                Node node = new Node(value);
-                root.setRight(node);
-                return;
+        } else {
+            if (this.getLeft() == null) {
+                this.setRight(node);
+            } else {
+                this.addRecursive(node);
             }
-            addRecursive(root.getLeft(), value);
         }
+
     }
 
     public void printNode() {
@@ -80,6 +78,10 @@ public class Node {
     }
 
     public String print() {
+        System.out.println("Árvore Binária de Busca:");
+        System.out.println("\nLegenda:");
+        System.out.println("    Direita:  \u001B[44m   \033[0m");
+        System.out.println("    Esquerda: \u001B[41m   \033[0m\n");
         StringBuilder buffer = new StringBuilder(50);
         printAux(buffer, "", "");
         return buffer.toString();
@@ -88,14 +90,18 @@ public class Node {
     private void printAux(StringBuilder builder, String text, String childrenPrefix) {
         builder.append(text);
         builder.append(this.value);
+        builder.append("\033[0m");
         builder.append("\n");
-        for (Iterator<Node> it = this.children.iterator(); it.hasNext();) {
-            Node next = it.next();
-            if (it.hasNext()) {
-                next.printAux(builder, childrenPrefix + "├── ", childrenPrefix + "│   ");
+
+        if (this.getRight() != null) {
+            if (this.getLeft() != null) {
+                this.getRight().printAux(builder, childrenPrefix + "\u001B[34m├──── ", childrenPrefix + "\u001B[31m│      ");
             } else {
-                next.printAux(builder, childrenPrefix + "└── ", childrenPrefix + "    ");
+                this.getRight().printAux(builder, childrenPrefix + "\u001B[34m└──── ", childrenPrefix + "\u001B[31m       ");
             }
+        }
+        if (this.getLeft() != null) {
+            this.getLeft().printAux(builder, childrenPrefix + "\u001B[31m└──── ", childrenPrefix + "       ");
         }
     }
 

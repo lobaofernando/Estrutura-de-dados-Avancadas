@@ -5,12 +5,12 @@ import java.util.Iterator;
 
 public class Node {
 
-    String name;
+    int value;
     ArrayList<Node> children = new ArrayList<Node>();
     int grau;
 
-    public Node(String name) {
-        this.name=name;
+    public Node(int value) {
+        this.value=value;
     }
 
     public int getNivel() {
@@ -21,12 +21,12 @@ public class Node {
         this.grau = grau;
     }
 
-    public String getName() {
-        return name;
+    public int getValue() {
+        return value;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public void addChild(Node node) {
@@ -40,7 +40,7 @@ public class Node {
     public void printChildren() {
         System.out.print("filhos (");
         for (int i = 0; i < this.getChildren().size(); i++) {
-            System.out.print((String)this.getChildren().get(i).getName());
+            System.out.print(this.getChildren().get(i).getValue());
             if (i < this.getChildren().size() - 1) {
                 System.out.print(", ");
             }
@@ -67,7 +67,7 @@ public class Node {
 
     private void printAux(StringBuilder builder, String text, String childrenPrefix) {
         builder.append(text);
-        builder.append(this.name);
+        builder.append(this.value);
         builder.append("\n");
         for (Iterator<Node> it = this.children.iterator(); it.hasNext();) {
             Node next = it.next();
