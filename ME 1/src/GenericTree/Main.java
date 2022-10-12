@@ -33,8 +33,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
         GenericTree exampleTree = new GenericTree();
+
         exampleTree.addNodetest(1, 0);
         exampleTree.addNodetest(2, 1);
         exampleTree.addNodetest(23, 1);
