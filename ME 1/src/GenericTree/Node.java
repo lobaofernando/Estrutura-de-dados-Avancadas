@@ -48,10 +48,6 @@ public class Node {
         System.out.print(")  ");
     }
 
-    public void getNodeAltura(int maxGrau) {
-        System.out.print("altura " + Math.abs((this.getNivel() - maxGrau)));
-    }
-
     public boolean isFolha() {
         if (this.children.size() == 0) {
             return true;

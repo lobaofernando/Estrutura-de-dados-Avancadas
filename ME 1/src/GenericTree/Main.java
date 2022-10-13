@@ -4,6 +4,7 @@ package GenericTree;
 //converter em arvore binaria
 
 import BinarySearchTree.BinarySearchTree;
+import BinarySearchTree.Node;
 
 import java.util.Scanner;
 
@@ -24,15 +25,15 @@ public class Main {
         System.out.println("11- Converter árvore generica para binaria de busca");
         System.out.println("12- Printar árvore binaria de busca convertida");
         System.out.println("13- Printar árvore binária de busca exemplo\n");
-        System.out.println("14- Deletar nó da árvore binária de busca convertida 1");
-        System.out.println("15- Deletar nó da árvore binária de busca convertida 2");
-        System.out.println("16- testDelete()");
-        System.out.println("17- testDelete2()");
+        System.out.println("14- Deletar nó da árvore binária de busca convertida");
+        System.out.println("15- printnodes");
+        System.out.println("16- Deletar nós da árvore binária de busca exemplo");
         System.out.println("\nx - Sair");
         System.out.println("======================================");
     }
 
     public static void main(String[] args) {
+        //<editor-fold desc="Árvore genérica exemplo">
         GenericTree exampleTree = new GenericTree();
 
         exampleTree.addNodetest(1, 0);
@@ -46,10 +47,13 @@ public class Main {
         exampleTree.addNodetest(8, 5);
         exampleTree.addNodetest(9, 5);
         exampleTree.addNodetest(10, 6);
+        //</editor-fold>
 
+        //<editor-fold desc="Árvore binária de busca exemplo">
         BinarySearchTree exampleBSTree = new BinarySearchTree();
 
         // inputs para arvore binaria de busca exemplo: 8 4 12 6 10 14 5 7 9 11 13 20 15
+        exampleBSTree.addNode(17);
         exampleBSTree.addNode(8);
         exampleBSTree.addNode(4);
         exampleBSTree.addNode(12);
@@ -62,11 +66,13 @@ public class Main {
         exampleBSTree.addNode(11);
         exampleBSTree.addNode(13);
         exampleBSTree.addNode(20);
+        exampleBSTree.addNode(16);
         exampleBSTree.addNode(15);
+        //</editor-fold>
 
-        GenericTree ExampleBtree = null;
+        GenericTree ExampleBtree = new GenericTree();
         BinarySearchTree bstree = null;
-        GenericTree btree = null;
+        GenericTree btree = new GenericTree();
         GenericTree tree = new GenericTree();;
         boolean check = true;
 
@@ -148,28 +154,15 @@ public class Main {
                         System.out.println("Primeiro use a opção 11 para gerar a Árvore Binária de busca!");
                         break;
                     }
-                    exampleBSTree.deleteNode();
+                    bstree.excluir();
                     break;
                 case "15":
-                    if ((bstree != null ? bstree.getRoot() : null) == null) {
-                        System.out.println("Primeiro use a opção 11 para gerar a Árvore Binária de busca!");
-                        break;
+                    for (Node node : exampleBSTree.getList()) {
+                        node.printNode();
                     }
-                    exampleBSTree.testDelete();
                     break;
                 case "16":
-                    if (exampleBSTree.getRoot() == null) {
-                        System.out.println("Primeiro use a opção 11 para gerar a Árvore Binária de busca!");
-                        break;
-                    }
-                    exampleBSTree.testDelete();
-                    break;
-                case "17":
-                    if (exampleBSTree.getRoot() == null) {
-                        System.out.println("Primeiro use a opção 11 para gerar a Árvore Binária de busca!");
-                        break;
-                    }
-                    exampleBSTree.deleteNode();
+                    exampleBSTree.excluir();
                     break;
                 case "x":
                     System.out.println("======================================");

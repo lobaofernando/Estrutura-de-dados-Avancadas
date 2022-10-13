@@ -8,6 +8,7 @@ public class Node {
     private int value;
     private Node left;
     private Node right;
+    private Node parent;
 
     public Node(int name) {
         this.value =name;
@@ -37,44 +38,30 @@ public class Node {
         this.right = right;
     }
 
-    public void addChild(Node node) {
-        ;
+    public Node getParent() {
+        return parent;
     }
 
-    public Node search(Node root, int value)
-    {
-        if (root==null || root.value==value)
-            return root;
-        if (root.value < value)
-            return search(root.right, value);
-        return search(root.left, value);
-    }
-
-    public void addRecursive(Node node)
-    {
-        if (this.value < node.getValue()) {
-            if (this.getRight() == null) {
-                this.setRight(node);
-            } else {
-                this.addRecursive(node);
-            }
-        } else {
-            if (this.getLeft() == null) {
-                this.setRight(node);
-            } else {
-                this.addRecursive(node);
-            }
-        }
-
+    public void setParent(Node parent) {
+        this.parent = parent;
     }
 
     public void printNode() {
-        System.out.print("Valor: ");
+        if (this.getParent() != null) {
+            System.out.print("Pai: ");
+            System.out.print(this.getParent().getValue());
+        }
+        System.out.print("\nValor: ");
         System.out.println(this.getValue());
-        System.out.print("<--Esquerda: ");
-        System.out.println(left.getValue());
-        System.out.print("Direita-->: ");
-        System.out.println(right.getValue());
+        System.out.print("Esquerda: ");
+        if (this.getLeft() != null) {
+            System.out.print(this.getLeft().getValue());
+        }
+        System.out.print("\nDireita : ");
+        if (this.getRight() != null) {
+            System.out.print(this.getRight().getValue());
+        }
+        System.out.println("\n-------\n");
     }
 
     public String print() {

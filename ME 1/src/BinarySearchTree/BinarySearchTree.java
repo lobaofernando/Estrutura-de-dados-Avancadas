@@ -14,10 +14,11 @@ public class BinarySearchTree {
     //construtor
     public BinarySearchTree() {
         this.root = null;
-        this.list = new ArrayList<>();
+        this.list = new ArrayList<Node>();
     }
     //construtor a partir de árvore já feita
     public BinarySearchTree(ArrayList<GenericTree.Node> list) {
+        this.list = new ArrayList<Node>();
         for (GenericTree.Node node : list) {
             this.addNode(node.getValue());
         }
@@ -27,38 +28,40 @@ public class BinarySearchTree {
         return root;
     }
 
-    public void setRoot(int root) {
-        Node node = new Node(root);
-        this.root = node;
-    }
-
     public ArrayList<Node> getList() {
         return list;
     }
 
-    public void setList(ArrayList<Node> list) {
-        this.list = list;
-    }
-
-    public void printTree() {
-        this.root.print();
-    }
-
     public void addNode(int value)  {
-        this.root = addNodeRecursive(this.root, value);
+
+        Node node = new Node(value);
+
+        if (this.root == null) {
+            this.root = node;
+            this.list.add(node);
+        }
+        addNodeRecursive(this.root, value);
     }
 
-    Node addNodeRecursive(Node node, int value) {
-        if (node == null) {
-            node = new Node(value);
-            list.add(node);
-            return node;
+    void addNodeRecursive(Node parent, int value) {
+        if (value < parent.getValue()) {
+            if (parent.getLeft() == null) {
+                Node node = new Node(value);
+                node.setParent(parent);
+                parent.setLeft(node);
+                this.list.add(node);
+            }
+            addNodeRecursive(parent.getLeft(), value);
         }
-        if (value < node.getValue())
-            node.setLeft(addNodeRecursive(node.getLeft(), value));
-        else if (value > node.getValue())
-            node.setRight(addNodeRecursive(node.getRight(), value));
-        return node;
+        else if (value > parent.getValue()) {
+            if (parent.getRight() == null) {
+                Node node = new Node(value);
+                node.setParent(parent);
+                parent.setRight(node);
+                this.list.add(node);
+            }
+            addNodeRecursive(parent.getRight(), value);
+        }
     }
 
     public boolean searchNodes(int value) {
@@ -70,74 +73,17 @@ public class BinarySearchTree {
         return false;
     }
 
-    int minValue(Node node)  {
+    Node maxValue(Node node)  {
         //initially minval = root
-        int minval = node.getValue();
         //find minval
-        while (node.getLeft() != null)  {
-            minval = node.getLeft().getValue();
-            node = node.getLeft();
+        while (node.getRight() != null)  {
+            node = node.getRight();
         }
-        return minval;
-    }
-
-    int maxValue(Node node)  {
-        //initially minval = root
-        int minval = node.getValue();
-        //find minval
-        while (node.getLeft() != null)  {
-            minval = node.getLeft().getValue();
-            node = node.getLeft();
-        }
-        return minval;
-    }
-
-    public void deleteNode() {
-        Scanner sc = new Scanner(System.in);
-        int input;
-        System.out.println("======================================");
-        System.out.println("Insira o valor do nó: ");
-        input=sc.nextInt();
-
-        if (input==0) {
-            return;
-        }
-
-        if (!searchNodes(input)) {
-            System.out.println("Nó não cadastrado!!");
-            return;
-        }
-        System.out.println("\nAntes\n");
-        System.out.println(this.getRoot().print());
-        this.root = delete_Recursive(this.root, input);
-        System.out.println("\nDepois\n");
-        System.out.println(this.getRoot().print());
-
-        this.list.removeIf(node -> node.getValue() == input);
-    }
-
-    Node delete_Recursive(Node node, int value)  {
-
-        if (node == null)  return null;
-
-        if (value < node.getValue())
-            node.setLeft(delete_Recursive(node.getLeft(), value));
-        else if (value > node.getValue())
-            node.setRight(delete_Recursive(node.getRight(), value));
-        else  {
-            if (node.getLeft() == null)
-                return node.getLeft();
-            else if (node.getRight() == null)
-                return node.getLeft();
-
-            node.setValue(minValue(node.getRight()));
-
-            node.setRight(delete_Recursive(node.getRight(), node.getValue()));
-        }
+        System.out.println(node.getValue());
         return node;
     }
 
-    public void testDelete() {
+    public void excluir() {
         Scanner sc = new Scanner(System.in);
         int input;
         System.out.println("======================================");
@@ -148,26 +94,64 @@ public class BinarySearchTree {
             return;
         }
 
+        if (input == this.getRoot().getValue()) {
+            System.out.println("Nó raiz não pode ser excluído!!");
+        }
+
         if (!searchNodes(input)) {
             System.out.println("Nó não cadastrado!!");
             return;
         }
-        System.out.println("\nAntes\n");
-        System.out.println(this.getRoot().print());
-
-        this.list.removeIf(node -> node.getValue() == input);
-        int size = this.list.size();
-        this.root=null;
-
-        for (int c=0; c <= size; c++) {
-            this.addNode(this.list.get(c).getValue());
-        }
-
-        for (int c=size-1; c <= list.size(); c++) {
-            this.list.remove(c);
-        }
-
-        System.out.println("\nDepois\n");
-        System.out.println(this.getRoot().print());
+        excluirAux(input);
     }
+
+    void excluirAux(int input) {
+
+        for (Node node : this.getList()) {
+            if (node.getValue() == input) {
+
+                if (node.getLeft() == null && node.getRight()==null) {
+                    if (node.getParent().getValue() > node.getValue()) {
+                        node.getParent().setLeft(null);
+                    } else {
+                        node.getParent().setRight(null);
+                    }
+                    this.list.remove(node);
+                    return;
+                }
+
+                if (node.getLeft() == null) {
+                    if (node.getValue() > node.getParent().getValue()) {
+                        node.getParent().setRight(node.getRight());
+                    } else {
+                        node.getParent().setLeft(node.getRight());
+                    }
+                    node.getRight().setParent(node.getParent());
+                    this.list.remove(node);
+                    return;
+                }
+                Node no = this.maxValue(node.getLeft());
+
+                if (no.getLeft() != null) {
+                    no.getLeft().setParent(no.getParent());
+
+                    if (no.getLeft().getValue() < no.getParent().getValue()) {
+                        no.getParent().setLeft(no.getLeft());
+                    } else {
+                        no.getParent().setRight(no.getLeft());
+                    }
+                } else {
+                    if (no.getValue() > no.getParent().getValue()) {
+                        no.getParent().setRight(null);
+                    } else {
+                        no.getParent().setLeft(null);
+                    }
+                }
+                node.setValue(no.getValue());
+                this.list.remove(no);
+                return;
+            }
+        }
+    }
+
 }
